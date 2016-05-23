@@ -1,2 +1,6 @@
 # ox-soa2
-Updated version of OX-SOA
+This is a new version of the SOA course for the Oxford MSc in Software Engineering
+
+For the old version, please see https://github.com/pzfreo/ox-soa
+
+
