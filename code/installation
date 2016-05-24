@@ -36,3 +36,10 @@ sudo ln -s `which nodejs` /usr/bin/node
 sudo apt-get install mitmproxy
 
 sudo pip install mitmproxy PySocks
+
+Installed tomcat
+renamed to ~/servers/tomcat
+chmod +x bin/*.sh
+
+
+Downloaded sample-service.war
