@@ -32,3 +32,7 @@ sudo pip install httplib2
 
 sudo npm install -g jasmine-node frisby
 sudo ln -s `which nodejs` /usr/bin/node
+
+sudo apt-get install mitmproxy
+
+sudo pip install mitmproxy PySocks
