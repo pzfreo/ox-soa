@@ -76,6 +76,7 @@ sudo nano /etc/security/limits.conf
 
 
 Eclipse Kepler JEE
+set eclipse view to filter out external libraries on the project explorer. 
 
  mvn -Declipse.workspace=/home/oxsoa/workspace eclipse:configure-workspace
 
