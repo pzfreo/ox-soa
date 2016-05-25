@@ -43,3 +43,44 @@ chmod +x bin/*.sh
 
 
 Downloaded sample-service.war
+
+Downloaded and installed SOAP UI
+
+CXF 2.7.18
+
+6)	Set JAVA_HOME in .bashrc
+export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
+
+7)	Also CXF_HOME and Path in .bashrc
+export CXF_HOME=~/servers/apache-cxf-2.7.18
+export PATH=$PATH:~/servers/apache-cxf-2.7.18/bin
+
+
+8)	Apache Maven 3.1.3 or later*
+Apache Ant 1.9.3 or later*
+Curl 7.35.0 or later*
+Tree*
+
+sudo apt-get install ant maven curl tree
+
+
+sudo nano /etc/security/limits.conf
+
+sudo nano /etc/security/limits.conf
+#<domain>      <type>  <item>         <value>
+#
+*                soft    nproc         60000
+*                hard  nofile         10000
+*                soft    nofile         10000
+
+
+
+Eclipse Kepler JEE
+
+ mvn -Declipse.workspace=/home/oxsoa/workspace eclipse:configure-workspace
+
+Set default code level to 1.7 or higher
+
+https://askubuntu.com/questions/80013/how-to-pin-eclipse-to-the-unity-launcher
+
+http://stackoverflow.com/questions/23011547/webservice-client-generation-error-with-jdk8
