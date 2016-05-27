@@ -21,6 +21,7 @@ dependencies {
 	   
     compile 'org.glassfish.jersey.core:jersey-server:2.23'            
 	compile 'org.glassfish.jersey.containers:jersey-container-jetty-servlet:2.23'
+	compile 'org.glassfish.jersey.media:jersey-media-json-jackson:2.6'
     compile 'org.eclipse.jetty:jetty-server:9.1.1.v20140108'
 	compile 'org.eclipse.jetty:jetty-util:9.1.1.v20140108'	
 	compile 'org.eclipse.jetty:jetty-servlet:9.1.1.v20140108'	
@@ -47,10 +48,9 @@ test.doFirst {
 }
 
 // after tests stop Jetty
-test.doLast {
-     tasks.jettyStop.execute()  
+test.finalizedBy {
+    tasks.jettyStop.execute()
 }
-
 
 // workaround for https://issues.gradle.org/browse/GRADLE-2263
 // will not be required after Gradle 3.0 is embedded in Gradle plugin
