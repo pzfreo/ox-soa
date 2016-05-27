@@ -1,15 +1,17 @@
-
+// this section allows us to add third-party plugins 
+// that we may need in later exercises
 plugins {
 }
 
 // Apply the java plugin to add support for Java
 apply plugin: 'java'
+// Jetty plugin required for running tests (and for future exercises)
 apply plugin: 'jetty'
 
+// where to download libraries, plugins etc
 repositories {
     jcenter()
 }
-
 
 
 // In this section you declare the dependencies for your production and test code
@@ -29,18 +31,22 @@ dependencies {
 // setup for Jetty
 jettyRun.contextPath = '/'
 jettyRun.httpPort = 8080
+// jetty needs to be stopped asynchronously. To make this happen we use the stop port
 jettyRun.stopPort = 8091
 jettyRun.stopKey = 'stopKey'
 jettyStop.stopPort = 8091   // Port for stop signal
 jettyStop.stopKey = 'stopKey'
 
 
+// before running tests start Jetty
 test.doFirst {
+  // start Jetty in the background
   jettyRun.daemon = true
   tasks.jettyRun.execute()
   
 }
 
+// after tests stop Jetty
 test.doLast {
      tasks.jettyStop.execute()  
 }
