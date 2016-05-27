@@ -89,3 +89,6 @@ http://stackoverflow.com/questions/23011547/webservice-client-generation-error-w
 sudo add-apt-repository ppa:cwchien/gradle
 sudo apt-get update
 sudo apt-get install gradle-2.13
+
+sudo add-apt-repository ppa:chris-lea/redis-server
+sudo apt-get update
