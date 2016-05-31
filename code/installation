@@ -92,3 +92,22 @@ sudo apt-get install gradle-2.13
 
 sudo add-apt-repository ppa:chris-lea/redis-server
 sudo apt-get update
+
+
+Unfortunately we need to fix something inside Ubuntu before we can do this lab. 
+
+In a terminal window:
+sudo nano  /etc/NetworkManager/NetworkManager.conf
+
+Then make sure the dnsmasq line is commented out with a #:
+
+[main]
+plugins=ifupdown,keyfile,ofono
+#dns=dnsmasq
+
+[ifupdown]
+managed=false
+
+Finally, restart the network manager:
+
+sudo restart network-manager
