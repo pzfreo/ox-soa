@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<api context="/echo" name="echoAPI" xmlns="http://ws.apache.org/ns/synapse">
+  <resource methods="POST" protocol="http">
+    <inSequence>
+      <payloadFactory description="createXML" media-type="xml">
+        <format>
+          <p:authorise xmlns:p="http://freo.me/payment/">
+            <p:card>
+              <p:cardnumber>$1</p:cardnumber>
+              <p:postcode>$2</p:postcode>
+              <!--Exactly 1 occurrence-->
+              <p:name>$3</p:name>
+              <!--Exactly 1 occurrence-->
+              <p:expiryMonth>$4</p:expiryMonth>
+              <!--Exactly 1 occurrence-->
+              <p:expiryYear>$5</p:expiryYear>
+              <!--Exactly 1 occurrence-->
+              <p:cvc>$6</p:cvc>
+            </p:card>
+            <!--Exactly 1 occurrence-->
+            <p:merchant>$7</p:merchant>
+            <!--Exactly 1 occurrence-->
+            <p:reference>$8</p:reference>
+            <!--Exactly 1 occurrence-->
+            <p:amount>$9</p:amount>
+          </p:authorise>
+        </format>
+        <args>
+          <arg evaluator="json" expression="$.cardNumber"/>
+          <arg evaluator="json" expression="$.postcode"/>
+          <arg evaluator="json" expression="$.name"/>
+          <arg evaluator="json" expression="$.month"/>
+          <arg evaluator="json" expression="$.year"/>
+          <arg evaluator="json" expression="$.cvc"/>
+          <arg evaluator="json" expression="$.merchant"/>
+          <arg evaluator="json" expression="$.reference"/>
+          <arg evaluator="json" expression="$.amount"/>
+        </args>
+      </payloadFactory>
+      <header name="Action" scope="default" value="http://freo.me/payment/authorise"/>
+      <header name="To" scope="default" value="http://localhost:8000/pay/services/paymentSOAP"/>
+      <log description="log" level="full"/>
+      <call blocking="true"/>
+      <log description="log2" level="full"/>
+      <payloadFactory description="toJSON" media-type="json">
+        <format>{"authcode": $1}</format>
+        <args>
+          <arg evaluator="xml" expression="//authcode"/>
+        </args>
+      </payloadFactory>
+      <respond description="respond"/>
+    </inSequence>
+    <outSequence/>
+    <faultSequence/>
+  </resource>
+</api>
