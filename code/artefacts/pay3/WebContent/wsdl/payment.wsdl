@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions name="payment" targetNamespace="http://freo.me/payment/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://freo.me/payment/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://freo.me/payment/">
+			<xsd:element name="authorise">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="card" type="tns:cardType">
+
+						</xsd:element>
+						<xsd:element name="merchant" type="xsd:int"/>
+						<xsd:element name="reference" type="xsd:string"/>
+						<xsd:element name="amount" type="xsd:double"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="authoriseResponse">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="authcode" type="xsd:string"/>
+						<xsd:element name="reference" type="xsd:string"/>
+						<xsd:element name="resultcode" type="xsd:int"/>
+						<xsd:element name="refusalreason" type="xsd:string"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+
+
+		
+            <xsd:complexType name="cardType">
+            
+								<xsd:sequence>
+									<xsd:element name="cardnumber" type="xsd:int"/>
+									<xsd:element name="postcode" type="xsd:string"/>
+									<xsd:element name="name" type="xsd:string"/>
+									<xsd:element name="expiryMonth" type="xsd:int"/>
+									<xsd:element name="expiryYear" type="xsd:int"/>
+									<xsd:element name="cvc" type="xsd:int"/>
+								</xsd:sequence>
+							
+            </xsd:complexType>
+        </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="authoriseRequest">
+    <wsdl:part name="parameters" element="tns:authorise">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="authoriseResponse">
+    <wsdl:part name="parameters" element="tns:authoriseResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="payment">
+    <wsdl:operation name="authorise">
+      <wsdl:input message="tns:authoriseRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:authoriseResponse">
+    </wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="paymentSOAP" type="tns:payment">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="authorise">
+      <soap:operation soapAction="http://freo.me/payment/authorise"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="payment">
+    <wsdl:port name="paymentSOAP" binding="tns:paymentSOAP">
+      <soap:address location="http://localhost:8080/pay3/services/paymentSOAP"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
