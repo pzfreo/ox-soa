@@ -1,0 +1,25 @@
+# supports version 2 of the docker compose language. 
+# Requires docker compose 1.6 or later
+version: '2'
+
+#define the services (e.g. containers) we need
+services:
+  # the Java container is our POResourceMS app, whose   
+  # dockerfile is in the current directory
+  esb:
+    # build the Dockerfile
+    image: pizak/payesb
+    # expose port 8080 as port 80
+    ports:
+     - "9444:9444"
+     - "8281:8281"
+     - "8443:8443"
+    # we require access to the redis service
+    links:
+     - "pay:pay"
+    # depends on redis
+    depends_on:
+     - pay
+  # the redis service is just redis
+  pay:
+    image: pizak/pay
