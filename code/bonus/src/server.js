@@ -15,13 +15,13 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({"extended" : false}));
 
 router.get("/",function(req,res){
-    res.json({"message" : "mongo express rest app"});
+    res.json({"message" : "mongo rest server app"});
 });
 
 router.route("/customers")
     .get(function(req,res){
 	    Customer.find({}, function(err, data) {
-	    if (!err) {
+	    if (!err && data) {
 	    	for (i in data) {
 				data[i].__v = undefined;
 				data[i]._id = undefined;
@@ -35,7 +35,7 @@ router.route("/customers")
 		c.save()
 		Customer.findOne({id:c.id}, function(err, data) {
 			
-			if (!err) {
+			if (!err && data) {
 				// remove internal fields from Mongo
 				data.__v = undefined;
 				data._id = undefined;
@@ -51,13 +51,11 @@ router.route("/customers/:id")
         var response = {};
         Customer.findOne({id: req.params.id} ,function(err,data){
         // This will run Mongo Query to fetch data based on ID.
-            if(!err) {
+            if(!err && data) {
                 // remove internal fields from Mongo
 				data.__v = undefined;
 				data._id = undefined;
-				
-				res.json(data);
-                               
+				res.json(data); 
             }
             else {
             	res.sendStatus(404);

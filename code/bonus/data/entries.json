@@ -1,0 +1,2 @@
+{"_id":{"$oid":"575461725531e805005a97c0"},"itemname":"Widget","id":"1","cost":5,"__v":0}
+{"_id":{"$oid":"575461725531e805005a97c1"},"itemname":"Thingummy","id":"2","cost":5000,"__v":0}

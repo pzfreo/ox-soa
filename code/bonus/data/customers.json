@@ -1,0 +1,2 @@
+{"_id":{"$oid":"575461725531e805005a97be"},"name":"BigCo","id":"00002","email":"accounts@big.co","__v":0}
+{"_id":{"$oid":"575461725531e805005a97bf"},"name":"Acme","id":"00001","email":"accounts@acme.com","__v":0}

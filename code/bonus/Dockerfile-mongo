@@ -1,0 +1,20 @@
+FROM mongo:latest
+
+RUN mkdir -p /data/db2 \
+    && echo "dbpath = /data/db2" > /etc/mongodb.conf \
+    && chown -R mongodb:mongodb /data/db2
+
+ADD data/*.json /data/
+
+
+RUN mongod --fork --logpath /var/log/mongodb.log --dbpath /data/db2 --smallfiles &&\
+    mongoimport --db test --collection customers /data/customers.json && \
+	mongoimport --db test --collection entries /data/entries.json && \
+	mongod --dbpath /data/db2 --shutdown && \
+    chown -R mongodb /data/db2
+
+# Make the new dir a VOLUME to persists it 
+VOLUME /data/db2
+
+EXPOSE 27017
+CMD ["mongod", "--config", "/etc/mongodb.conf", "--smallfiles"]

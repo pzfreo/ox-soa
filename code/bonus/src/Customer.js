@@ -1,4 +1,4 @@
-var mongoose = require('mongoose'); module.parent.mongoose;
+var mongoose = module.parent.exports.mongoose;
 var customerSchema = mongoose.Schema({
     name: String,
     id: {type: String, unique: true},
