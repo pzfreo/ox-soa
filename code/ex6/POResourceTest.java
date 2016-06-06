@@ -19,8 +19,8 @@ public class POResourceTest {
    	WebTarget target = client.target(BASEURL).path("purchase");
    	
    	Response response = target.request(MediaType.TEXT_PLAIN).get();
-   	assertEquals(response.getStatus(),Response.Status.OK); // 200
-   	assertEquals(response.readEntity(String.class),"Hello!");
+   	assertEquals(response.getStatus(),Response.Status.OK.getStatusCode()); // 200
+   	assertEquals(response.readEntity(String.class),"Hellooo!");
    	
    }
    
