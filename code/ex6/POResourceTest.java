@@ -20,7 +20,7 @@ public class POResourceTest {
    	
    	Response response = target.request(MediaType.TEXT_PLAIN).get();
    	assertEquals(response.getStatus(),Response.Status.OK); // 200
-   	assertEquals(response.readEntity(String.class),"Hello!");
+   	assertEquals(response.readEntity(String.class),"Hellooo!");
    	
    }
    
