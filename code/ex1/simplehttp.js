@@ -1,18 +1,13 @@
-var http = require('http');
+var http = require('http'),
+    express = require('express'), 
+    app = express();
 
-function handleRequest(request, response){
-    var obj = new Object;
-    obj.random = Math.floor((Math.random() * 100) + 1);
-
-    response.end(JSON.stringify(obj));
-}
-
-//Create a server
-var server = http.createServer(handleRequest);
-
-//Lets start our server on port 8080
-
-var PORT = 8080
-server.listen(PORT, function(){
-    console.log("Server listening on: http://localhost:%s", PORT);
+app.get("/",function(req,res){
+    obj = {random : Math.floor((Math.random() * 100) + 1)};
+	res.json(obj);
 });
+
+var server = app.listen(8080, function() {
+    console.log("Random server listening on port 8080");
+});
+
