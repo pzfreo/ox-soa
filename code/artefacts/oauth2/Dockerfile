@@ -9,7 +9,7 @@ RUN apk --update add git unzip bash wget sudo openjdk8 && \
 	wget https://github.com/pzfreo/ox-soa2/blob/master/code/artefacts/oauth2/introspect.war?raw=true -O introspect.war &&\
 	unzip -q /wso2/wso2is-5.1.0.zip -d /wso2/ && \
 	cp /wso2/introspect.war /wso2/wso2is-5.1.0/repository/deployment/server/webapps && \
-    /bin/rm /wso2/wso2-5.1.0.zip && \
+    /bin/rm /wso2/wso2is-5.1.0.zip && \
     /bin/rm /wso2/introspect.war
     
 
