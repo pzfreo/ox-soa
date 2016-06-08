@@ -15,4 +15,5 @@ resp, content = h.request(url, "GET", headers = headers)
 print "return code: " + resp['status']
 if (resp['status']=="200"):
   result = json.loads(content)
+  print result
   print "random number: " + str(result['random'])

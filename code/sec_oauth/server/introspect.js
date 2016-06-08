@@ -1,7 +1,7 @@
-Introspect = function(host, port, path) {
+Introspect = function(host, port, a_path) {
   if (host) introspect_host = host;
   if (port) introspect_port = port;
-  if (path) introspect_path = path;
+  if (a_path) introspect_path = a_path;
 }
 
 var qs = require('querystring'),
@@ -59,6 +59,7 @@ Introspect.prototype = {
   post_req.end();
 
   }
+
 };
 
 module.exports = Introspect;
