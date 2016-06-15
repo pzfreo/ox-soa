@@ -8,14 +8,18 @@ import org.eclipse.jetty.server.Server;
 import org.glassfish.jersey.jetty.JettyHttpContainerFactory;
 import org.glassfish.jersey.server.ResourceConfig;
 
-public class Main {
+public class Main extends ResourceConfig {
 
+	public Main() {
+		packages("freo.me.rest");
+	}
+	
 	public static void main(String[] args) throws Exception {
 		URI baseUri = UriBuilder.fromUri("http://localhost/").port(8080).build();
 		// This is fairly self-explanatory.
 		// You can define the URL on which the server will listen.
 
-		ResourceConfig config = new ResourceConfig(POResource.class);
+		ResourceConfig config = new Main();
 		// This is where we identify that the class POResource is the JAX-RS
 		// Resource (aka Service) that we want to expose.
 
