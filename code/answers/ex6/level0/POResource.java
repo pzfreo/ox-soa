@@ -15,7 +15,7 @@ import org.json.JSONObject;
 
 // this will be the HTTP URL sub path from the Jetty server’s URI where this 
 // resource/service will be available
-@Path("purchase")
+@Path("/purchase")
 public class POResource {
 	
 	OrderInMemory orderSingleton = null;
