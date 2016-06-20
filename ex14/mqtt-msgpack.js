@@ -3,7 +3,7 @@ var msgpack = require("msgpack-lite");
 var client  = mqtt.connect('mqtt://localhost');
 var mongoose = require("mongoose");
 mongoose.connect('mongodb://localhost/test');
-var poSchema = mongoose.Schema({
+var poSchema = mongoose.Schema({
     date: String,
     id: {type: String, unique: true},
     lineItem: Number,
