@@ -3,18 +3,18 @@ var uuid = require('uuid');
 
 
 mqttClient.on('connect', function () {
-  client.subscribe('/purchase', {qos:1});
+  mqttClient.subscribe('/pay', {qos:0});
 });
 
-var mongoClient = require('mongodb').MongoClient.connect(url, function(err, db) {
+var mongoClient = require('mongodb').MongoClient.connect("mongodb://localhost/test", function(err, db) {
 	if (err==null) {
 		mqttClient.on('message', function (topic, message) {
-			insertJSON(db, 'pay', json, function(result) { console.log(result); });
-		
-		
+      json = JSON.parse(message);
+      json.uuid = uuid.v4();
+			insertJSON(db, 'pay', json, function(result) { console.log(result);});
 		});
-	
-		
+
+
 	}
 });
 
