@@ -2,7 +2,7 @@ var frisby = require('frisby');
 
 frisby.create('Test Random Number service')
   .get('http://localhost:8080/')
-  .expectStatus(200)
+  .expectStatus(201)
   .expectHeaderContains('Content-Type', 'application/json')
   .expectJSONTypes( {
     random: Number
