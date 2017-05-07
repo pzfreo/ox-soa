@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<api context="/pay" name="PayAPI" xmlns="http://ws.apache.org/ns/synapse">
+  <resource methods="GET" protocol="http" uri-template="/{input}">
+    <inSequence>
+      <payloadFactory description="createXML" media-type="xml">
+        <format>
+          <p:ping xmlns:p="http://freo.me/payment/">
+            <p:in>$1</p:in>
+          </p:ping>
+        </format>
+        <args>
+          <arg evaluator="xml" expression="$ctx:uri.var.input"/>
+        </args>
+      </payloadFactory>
+      <header name="Action" scope="default" value="http://freo.me/payment/ping"/>
+      <log level="full"/>
+      <call>
+        <endpoint>
+          <address format="soap11" trace="disable" uri="http://localhost:8080/pay/services/paymentSOAP"/>
+        </endpoint>
+      </call>
+      <log description="logback" level="full"/>
+      <payloadFactory description="toJSON" media-type="json">
+        <format>{ "return": "$1" }</format>
+        <args>
+          <arg evaluator="xml" expression="//*[local-name()='out']"/>
+        </args>
+      </payloadFactory>
+      <respond description="respond"/>
+    </inSequence>
+    <outSequence/>
+    <faultSequence/>
+  </resource>
+</api>
