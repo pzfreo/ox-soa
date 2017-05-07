@@ -1,0 +1,85 @@
+<api xmlns="http://ws.apache.org/ns/synapse" name="PayAPI" context="/pay">
+   <resource methods="GET" uri-template="/{input}" protocol="http">
+      <inSequence>
+         <payloadFactory media-type="xml" description="createXML">
+            <format>
+               <p:ping xmlns:p="http://freo.me/payment/">
+                  <p:in>$1</p:in>
+               </p:ping>
+            </format>
+            <args>
+               <arg evaluator="xml" expression="$ctx:uri.var.input"/>
+            </args>
+         </payloadFactory>
+         <header name="Action" scope="default" value="http://freo.me/payment/ping"/>
+         <log level="full"/>
+         <call>
+            <endpoint>
+               <address uri="http://localhost:8080/pay/services/paymentSOAP" trace="disable" format="soap11"/>
+            </endpoint>
+         </call>
+         <log level="full" description="logback"/>
+         <payloadFactory media-type="json" description="toJSON">
+            <format>{ "return": "$1" }</format>
+            <args>
+               <arg evaluator="xml" expression="//*[local-name()='out']"/>
+            </args>
+         </payloadFactory>
+         <respond description="respond"/>
+      </inSequence>
+      <outSequence/>
+      <faultSequence/>
+   </resource>
+   <resource methods="POST" protocol="http">
+      <inSequence>
+         <payloadFactory media-type="xml" description="createXML">
+            <format>
+               <p:authorise xmlns:p="http://freo.me/payment/">
+                  <p:card>
+                     <p:cardnumber>$1</p:cardnumber>
+                     <p:postcode>$2</p:postcode>
+                     <p:name>$3</p:name>
+                     <p:expiryMonth>$4</p:expiryMonth>
+                     <p:expiryYear>$5</p:expiryYear>
+                     <p:cvc>$6</p:cvc>
+                  </p:card>
+                  <p:merchant>$7</p:merchant>
+                  <p:reference>$8</p:reference>
+                  <p:amount>$9</p:amount>
+               </p:authorise>
+            </format>
+            <args>
+               <arg evaluator="json" expression="$.cardNumber"/>
+               <arg evaluator="json" expression="$.postcode"/>
+               <arg evaluator="json" expression="$.name"/>
+               <arg evaluator="json" expression="$.month"/>
+               <arg evaluator="json" expression="$.year"/>
+               <arg evaluator="json" expression="$.cvc"/>
+               <arg evaluator="json" expression="$.merchant"/>
+               <arg evaluator="json" expression="$.reference"/>
+               <arg evaluator="json" expression="$.amount"/>
+            </args>
+         </payloadFactory>
+         <header name="Action" scope="default" value="http://freo.me/payment/authorise"/>
+         <log level="full" description="log"/>
+         <call>
+            <endpoint>
+               <address uri="http://localhost:8080/pay/services/paymentSOAP" trace="disable" format="soap11"/>
+            </endpoint>
+         </call>
+         <log level="full" description="log2"/>
+         <payloadFactory media-type="json" description="toJSON">
+            <format>{"authcode": "$1" , "reference":"$2", "refusalreason":"$3" }</format>
+            <args>
+               <arg evaluator="xml" expression="//*[local-name()='authcode']"/>
+               <arg evaluator="xml" expression="//*[local-name()='reference']"/>
+               <arg evaluator="xml" expression="//*[local-name()='refusalreason']"/>
+            </args>
+         </payloadFactory>
+         <respond description="respond"/>
+      </inSequence>
+      <outSequence/>
+      <faultSequence/>
+   </resource>
+</api>
+                        
