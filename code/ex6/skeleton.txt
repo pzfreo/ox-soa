@@ -1,0 +1,63 @@
+public /* some return type */ createOrder(/* some kind of input */) {
+
+	boolean success = true;
+	String orderId = null;
+	try {
+		orderId = orderSingleton.createOrder(/* order json needs to be passed */);
+	} catch (JSONException je) {
+		// you passed JSON
+		success = false;
+	}
+	
+
+}
+
+public /* some return type */ updateOrder(/* some kind of input*/) {
+	
+	try {
+		orderSingleton.updateOrder(id, input); // id is an existing id, input is a JSON order
+		return // some kind of return goes here
+	} catch (JSONException je) {
+		// you passed bad JSON
+	} catch (NotFoundException nfe) {
+		// there was no existing order
+	}
+	
+}
+
+public /* some return type */ getOrder(/* some input */)
+{
+	String orderJSON;
+	try {
+		orderJSON = orderSingleton.getOrder(id);
+	} catch ( NotFoundException e) {
+		// id does exist
+	}
+	if (orderJSON == null) {
+		// id has been deleted
+	} else {
+		return // we got a correct response
+	}
+
+}
+public /* some return type*/  deleteOrder(/* some input */)
+{
+	try {
+		 boolean deleted = orderSingleton.deleteOrder(id);
+		 if (deleted) {
+			 /*  we successfully deleted it */
+		 }
+		 else
+		 {
+			 /* no exception but false means its already been deleted */
+		 }
+	 } catch ( NotFoundException e) {
+		 // the order never existed
+	 }
+}
+
+public /* some kind of return */ getAllOrders()
+{
+	String allOrders = orderSingleton.getOrders();
+	// this has no errors 
+}

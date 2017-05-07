@@ -63,7 +63,7 @@
 //    	
 //    	assertEquals(200, response.getStatus());
 //    	jsonResponse = new JSONObject(response.readEntity(String.class));
-//    	assertEquals(jsonResponse.get("1", "returnCode"));
+//    	assertEquals(jsonResponse.get("1"), "returnCode");
 //    	
 //    }
 //    
