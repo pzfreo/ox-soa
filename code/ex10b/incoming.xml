@@ -1,0 +1,13 @@
+<p:authorise>
+  <p:card>
+	 <p:cardnumber>4544950403888999</p:cardnumber>
+	 <p:postcode>PO107XA</p:postcode>
+	 <p:name>P Z FREMANTLE</p:name>
+	 <p:expiryMonth>6</p:expiryMonth>
+	 <p:expiryYear>2017</p:expiryYear>
+	 <p:cvc>999</p:cvc>
+  </p:card>
+  <p:merchant>A0001</p:merchant>
+  <p:reference>test</p:reference>
+  <p:amount>11.11</p:amount>
+</p:authorise>

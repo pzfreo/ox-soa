@@ -14,7 +14,8 @@ service<http> RESTPay {
 	
 	   inres.setStatusCode(200);
        // this next line is a cheat as we are not calling the remote soap service to access this
-	   json response = { response: in };
+       
+	   json response = {"return": in };
 	   inres.setJsonPayload(response);
         _ = inres.send();
     }
