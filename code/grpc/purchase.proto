@@ -1,0 +1,33 @@
+syntax = "proto3";
+
+package freo.me.purchase;
+
+// The greeting service definition.
+service Purchase {
+  // Sends a greeting
+  rpc purchase (PurchaseRequest) returns (PurchaseReply) {}
+}
+
+// The request message containing the user's name.
+message PurchaseRequest {
+  string poNumber = 1;
+  string lineItem = 2;
+  int32 quantity = 3;
+  Date date = 4;
+  string customerNumber= 5;
+  string paymentReference = 6;
+
+}
+
+message Date {
+	int32 year = 1;
+	int32 month = 2;
+	int32 day = 3;
+}
+
+// The response message containing the greetings
+message PurchaseReply {
+  string message = 1;
+  int32 returncode = 2;
+}
+
