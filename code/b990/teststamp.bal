@@ -13,27 +13,22 @@ type payment record {
 };
 
 
-
-
-public function main(string... args)  {
+public function main(string... args) {
 
     json js = 
     {
-    "cardNumber": "4544950403888999",
-    "postcode": "PO107XA",
-    "name": "P Z FREMANTLE",
-    "month": 6,
-    "year": 2017,
-    "cvc": 999,
-    "merchant": "A0001",
-    "reference": "test",
-    "amount": 11.11
+        cardNumber: "4544950403888999",
+        postcode: "PO107XA",
+        name: "P Z FREMANTLE",
+        month: 6,
+        year: 2017,
+        cvc: 999,
+        merchant: "A0001",
+        reference: "test",
+        amount: 11.11
     };
-    payment | error p  = payment.convert(js); 
-    if (p is error) {
-        io:println(p.reason());
-    } else {
-        io:println(p);   
-    }   
+
+    payment | error p  = payment.convert(js);
+    io:println(p);
     
 }
