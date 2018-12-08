@@ -82,9 +82,14 @@ service mediate on new http:Listener(9090) {
         http:Response payResp = check payclient->post("/pay/services/paymentSOAP", soapReq);
 
         json jsonResp  = untaint check payResp.getXmlPayload()!toJSON({preserveNamespaces: false});
-        json jsBody = jsonResp.Envelope.Body;
+        json data = jsonResp.Envelope.Body.authoriseResponse;
+        json response = {
+            authcode: data.authcode,
+            reference: data.reference,
+            refusalreason: data.refusalreason
+        };
         
-        _ = caller->respond(jsBody.authoriseResponse);
+        _ = caller->respond(response);
         return;
     }
 }
