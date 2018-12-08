@@ -1,0 +1,26 @@
+# supports version 2 of the docker compose language. Requires docker compose 1.6 or later
+version: '2'
+
+#define the services (e.g. containers) we need
+services:
+  # the Java container is our POResourceMS app, whose dockerfile is in the current directory
+  mediate:
+    # build the Dockerfile
+    image: pzfreo/payment
+    # expose port 8080 as port 80
+    environment:
+    - SOAP_ENDPOINT=http://soappayment:8080/
+    ports:
+     - "9090:9090"
+    # we require access to the redis service
+    links:
+     - "soappayment:soappayment"
+    # depends on redis
+    depends_on:
+     - soappayment
+  # the redis service is just redis!
+  soappayment:
+    image: pizak/pay
+    ports:
+     - "8080:8080"
+    

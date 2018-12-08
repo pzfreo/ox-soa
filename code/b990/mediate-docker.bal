@@ -1,8 +1,7 @@
 import ballerina/http;
 import ballerina/io;
 import ballerinax/docker;
-
-http:Client payclient = new("http://localhost:8080/");
+import ballerina/config;
 
 @docker:Expose{}
 listener http:Listener l = new(9090);
@@ -19,6 +18,8 @@ type payment record {
     float amount;
 };
 
+http:Client payclient = new(config:getAsString("SOAP_ENDPOINT", default = "http://localhost:8080"));
+
 
 @docker:Config {
     name: "pzfreo/payment"
@@ -27,6 +28,9 @@ type payment record {
     basePath: "/pay"
 }
 service mediate on l {
+
+    
+
     @http:ResourceConfig {
         methods: ["GET"],
         path: "/ping/{echo}"
