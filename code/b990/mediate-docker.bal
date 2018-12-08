@@ -4,6 +4,8 @@ import ballerinax/docker;
 
 http:Client payclient = new("http://localhost:8080/");
 
+@docker:Expose{}
+listener http:Listener l = new(9090);
 
 type payment record {
     string cardNumber;
@@ -18,10 +20,13 @@ type payment record {
 };
 
 
+@docker:Config {
+    name: "pzfreo/payment"
+}
 @http:ServiceConfig {
     basePath: "/pay"
 }
-service mediate on new http:Listener(9090) {
+service mediate on l {
     @http:ResourceConfig {
         methods: ["GET"],
         path: "/ping/{echo}"
