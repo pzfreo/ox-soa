@@ -15,9 +15,7 @@ service mediate on new http:Listener(9090) {
         returns () | error {
         
         xmlns "http://freo.me/payment/" as pay;
-        
-        // use the XML syntax to create the XML body tags
-        //xml body = 
+        xml body = xml `<pay:ping><pay:in>{{untaint echo}}</pay:in></pay:ping>`;
         
         xmlns "http://schemas.xmlsoap.org/soap/envelope/" as s;
         xml soap = xml `<s:Envelope><s:Body>{{body}}</s:Body></s:Envelope>`;
@@ -26,14 +24,11 @@ service mediate on new http:Listener(9090) {
         soapReq.addHeader("SOAPAction", "http://freo.me/payment/ping");
         soapReq.setPayload(soap);
 
-        // use the http:Client send the XML payload as a POST to the endpoint
-        // http:Response payResp = 
+        http:Response payResp = check payclient->post("/pay/services/paymentSOAP", soapReq);
 
         json jsonResp  = untaint check payResp.getXmlPayload()!toJSON({preserveNamespaces: false});
-        json jsBody = jsonResp.Envelope.Body;
-
-        // extract the string text from the right tag in the response 
-        // string responseText = 
+        json jsBody = jsonResp.Envelope.Body; 
+        string responseText = <string>jsBody.pingResponse.out;
         json js = {
             pingResponse: responseText
         };
