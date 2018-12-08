@@ -1,7 +1,7 @@
 import ballerina/io;
 
 type payment record {
-    string cardnumber;
+    string cardNumber;
     string postcode;
     string name;
     int month;

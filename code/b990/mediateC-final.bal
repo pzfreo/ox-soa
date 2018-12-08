@@ -4,7 +4,7 @@ import ballerina/io;
 http:Client payclient = new("http://localhost:8080/");
 
 type payment record {
-    string cardnumber;
+    string cardNumber;
     string postcode;
     string name;
     int month;
@@ -48,24 +48,19 @@ service mediate on new http:Listener(9090) {
         return;
     }
 
-
-
     @http:ResourceConfig {
-        consumes: ["application/json"],
-        produces: ["application/json"],
         methods: ["POST"],
-        path: "/authorise",
-        body: "p"
+        path: "/authorise"
     }
-    resource function payment(http:Caller caller, http:Request request, payment p)
-    returns () | error {
+    resource function payment(http:Caller caller, http:Request request)
+        returns () | error {
 
-        payment p2 = check payment.convert(request.getJsonPayload());
+        payment p = untaint check payment.convert(request.getJsonPayload());
 
         xmlns "http://freo.me/payment/" as pay;
         xml body = xml `<pay:authorise>
             <pay:card>
-                <pay:cardnumber>{{p.cardnumber}}</pay:cardnumber>
+                <pay:cardnumber>{{p.cardNumber}}</pay:cardnumber>
                 <pay:postcode>{{p.postcode}}</pay:postcode>
                 <pay:name>{{p.name}}</pay:name>
                 <pay:expiryMonth>{{p.month}}</pay:expiryMonth>
@@ -82,7 +77,7 @@ service mediate on new http:Listener(9090) {
 
         http:Request soapReq = new;
         soapReq.addHeader("SOAPAction", "http://freo.me/payment/authorise");
-        soapReq.setPayload(untaint soap);
+        soapReq.setPayload(soap);
 
         http:Response payResp = check payclient->post("/pay/services/paymentSOAP", soapReq);
 
