@@ -4,7 +4,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
-import org.glassfish.jersey.apache.connector.ApacheClientProperties;
 import org.glassfish.jersey.apache.connector.ApacheConnectorProvider;
 import org.glassfish.jersey.client.ClientConfig;
 import org.glassfish.jersey.client.ClientProperties;
@@ -37,14 +36,18 @@ public class PurchaseApplicationTests {
 
 	private static final String BASEURL = "http://localhost:8080";
 
+	private static final String PROXY_URI = "http://localhost:8000";
+	// private static final String PROXY_URI = null;
+
 	@Test public void testPOST_Level1() {
 	
 		// TEST 1. 
     	// POST a valid JSON with the right elements to http://localhost:8080/purchase
     	// Response code is 201
     	// expect a header Location: url
-    	// expect a JSON response with matching values
-		config.property(ClientProperties.PROXY_URI, "http://localhost:8000");
+		// expect a JSON response with matching values
+		
+		if (PROXY_URI!=null) config.property(ClientProperties.PROXY_URI, PROXY_URI);
 		config.connectorProvider(new ApacheConnectorProvider());
     	WebTarget target = ClientBuilder.
     			newClient(config).
@@ -94,7 +97,7 @@ public class PurchaseApplicationTests {
     	// expect a header Location: url
     	// don't check any more
     	// use the Location for the further tests
-    	config.property(ClientProperties.PROXY_URI, "http://localhost:8000");
+    	if (PROXY_URI!=null) config.property(ClientProperties.PROXY_URI, PROXY_URI);
 		config.connectorProvider(new ApacheConnectorProvider());
     	WebTarget target = ClientBuilder.
     			newClient(config).
@@ -124,7 +127,7 @@ public class PurchaseApplicationTests {
     @Test public void TestGets_Level2() {
     	// Test get the order
 		// Need to post an order first
-		config.property(ClientProperties.PROXY_URI, "http://localhost:8000");
+		if (PROXY_URI!=null) config.property(ClientProperties.PROXY_URI, PROXY_URI);
 		config.connectorProvider(new ApacheConnectorProvider());
     	WebTarget target = ClientBuilder.
     			newClient(config).
@@ -164,7 +167,7 @@ public class PurchaseApplicationTests {
     
     @Test public void TestPut_Level2() {
 		// Need to post an order first
-		config.property(ClientProperties.PROXY_URI, "http://localhost:8000");
+		if (PROXY_URI!=null) config.property(ClientProperties.PROXY_URI, PROXY_URI);
 		config.connectorProvider(new ApacheConnectorProvider());
     	WebTarget target = ClientBuilder.
     			newClient(config).
@@ -222,7 +225,7 @@ public class PurchaseApplicationTests {
     
 	@Test 
 	public void TestDelete_Level2() {
-		config.property(ClientProperties.PROXY_URI, "http://localhost:8000");
+		if (PROXY_URI!=null) config.property(ClientProperties.PROXY_URI, PROXY_URI);
 		config.connectorProvider(new ApacheConnectorProvider());
     	WebTarget target = ClientBuilder.
     			newClient(config).
@@ -269,7 +272,7 @@ public class PurchaseApplicationTests {
 	public void testGET_Level3() {
 
 		// start by creating a new entry
-		config.property(ClientProperties.PROXY_URI, "http://localhost:8000");
+		if (PROXY_URI!=null) config.property(ClientProperties.PROXY_URI, PROXY_URI);
 		config.connectorProvider(new ApacheConnectorProvider());
     	WebTarget target = ClientBuilder.newClient(config).target(BASEURL).path("purchase");
 
