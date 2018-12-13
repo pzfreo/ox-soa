@@ -1,0 +1,5 @@
+cd ~/Downloads
+wget https://s3-eu-west-1.amazonaws.com/oxsoa-2018/apim260patch.zip
+cd ~/servers/wso2am-2.6.0
+unzip -o ~/Downloads/apim260patch.zip
+
