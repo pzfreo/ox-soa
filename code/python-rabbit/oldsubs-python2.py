@@ -1,3 +1,4 @@
+
 import pika
 import json
 
@@ -9,6 +10,8 @@ def callback(ch, method, properties, body):
     result = json.loads(body)
     print(result)
 
-channel.basic_consume(on_message_callback=callback, queue='purchase', auto_ack=True)
+channel.basic_consume(callback,
+                      queue='purchase',
+                      no_ack=True)
 
 channel.start_consuming()
