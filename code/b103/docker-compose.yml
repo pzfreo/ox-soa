@@ -1,0 +1,18 @@
+version: '2'
+
+services:
+  mediate:
+    image: pzfreo/pay-mediator
+    environment:
+    - SOAP_ENDPOINT=http://soappayment:8080/pay/services/paymentSOAP
+    ports:
+     - "8080:8080"
+    links:
+     - "soappayment:soappayment"
+    depends_on:
+     - soappayment
+  soappayment:
+    image: pizak/pay
+    ports:
+     - "8888:8080"
+    
