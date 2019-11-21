@@ -6,8 +6,8 @@ var https = require('https'),
     app = express();
 
 
-var client_id = "j1fN_dmgPxgzVlFcto3f7IM_Xuca";
-var client_secret = "qezRcawm4n99koiDYySIgweBfYEa";
+var client_id = "BMTt0AuIz8Y5cBaj4hu2T5metSca";
+var client_secret = "RPRoyR25aIy610jGOrTd4BT6aM0a";
 oauth2token = new OAuth2token("localhost", 9763, "/oauth2/token");
 
 app.get('/gettoken', function (req,res) {
