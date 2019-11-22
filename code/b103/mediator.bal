@@ -35,7 +35,7 @@ service mediator on new http:Listener(8080) {
                 <pay:in>${ping.name}</pay:in>
             </pay:ping>`;
 
-        var soapResponse = check backend->sendReceive("http://freo.me/payment/ping", body);
+        var soapResponse = check backend->sendReceive(body, "http://freo.me/payment/ping");
         xml? payload = soapResponse?.payload;
         if (payload is ()) {
             http:Response err = new;
@@ -75,7 +75,7 @@ service mediator on new http:Listener(8080) {
         </pay:authorise>`;
         
         
-        var soapResponse = check backend->sendReceive("http://freo.me/payment/authorise", body);
+        var soapResponse = check backend->sendReceive(body, "http://freo.me/payment/authorise");
         xml? payload = soapResponse?.payload;
         if (payload is ()) {
             http:Response err = new;
