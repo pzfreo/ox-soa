@@ -1,0 +1,14 @@
+thoughts
+
+1. everything tested from postman / newman (if poss)
+2. start with different components until we have a complete cell-based app
+3. Spring Boot, Python, Node and Ballerina
+4. Simplify the Spring Boot / Java option
+5. Docker for all dependencies
+6. Make Docker early on
+7. Kubernetes / CICD - travis, github, deploy
+8. digital ocean credit
+9. everything cloned from github to start
+10. each service has a distinct idea
+11. Async as well as sync
+12. AMQP (or NATS, Kafka?), gRPC, REST, graphQL protocols
