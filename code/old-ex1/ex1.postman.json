@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "84cf4f07-f479-43b2-9b1f-6ad42bc42642",
+		"_postman_id": "feed28e7-f75f-4e12-ade7-897f8d7a2276",
 		"name": "Exercise1",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -13,7 +13,7 @@
 					"script": {
 						"exec": [
 							"pm.test(\"RandomService GET test\", function() {",
-							"    pm.response.to.have.status(200);",
+							"    pm.response.to.have.status(201);",
 							"    pm.response.to.be.json;",
 							"    pm.response.to.be.withBody;",
 							"    pm.response.to.have.header(\"Content-Type\");",
