@@ -1,0 +1,45 @@
+{
+	"info": {
+		"_postman_id": "feed28e7-f75f-4e12-ade7-897f8d7a2276",
+		"name": "Exercise1",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Test Get",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"RandomService GET test\", function() {",
+							"    pm.response.to.have.status(201);",
+							"    pm.response.to.be.json;",
+							"    pm.response.to.be.withBody;",
+							"    pm.response.to.have.header(\"Content-Type\");",
+							"     pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json');",
+							"    const responseJson = pm.response.json();",
+							"    pm.expect(responseJson.random).to.greaterThan(1).lessThan(100);",
+							"    ",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080"
+				}
+			},
+			"response": []
+		}
+	]
+}
