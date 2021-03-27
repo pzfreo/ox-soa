@@ -1,30 +1,26 @@
 import express from "express";
 import bodyParser from "body-parser";
 
-
 const app = express();
-
 
 app.use(bodyParser.json())
 
-interface Name {
-    firstName: string;
-    lastName: string;
+interface Random {
+    random: number;
 }
 
-async function get(req:express.Request, res: express.Response) : Promise<express.Response> {
-    const paul:  Name =  {
-        firstName: "Paul",
-        lastName: "Fremantle"
+async function get(req:express.Request, res: express.Response) : 
+    Promise<express.Response> {
+    const r:  Random =  {
+        random: Math.floor((Math.random() * 100) + 1)
     };
 
-    return res.json(paul);
+    return res.json(r);
 }
 
 app.get("/", get);
 
-const port = process.env.PORT || 8000;
-
+const port = process.env.PORT || 8080;
 app.listen(port, () =>
-  console.log(`Simple app listening at http://localhost:${port}`)
+  console.log(`Random server listening at http://localhost:${port}`)
 );
