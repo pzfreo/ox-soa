@@ -1,0 +1,8 @@
+"scripts": {
+    "start": "ts-node src/app.ts",
+    "dev": "nodemon --watch . --ext ts --exec \"ts-node src/app.ts\"",
+    "test": "newman run ex1-postman.json",
+    "test-dev": "nodemon --watch . --ext ts --exec \"sleep 5 && newman run ex1-postman.json\"",
+    "build": "tsc",
+    "watch": "tsc --watch"
+  },

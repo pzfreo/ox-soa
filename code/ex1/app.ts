@@ -15,7 +15,7 @@ async function get(req:express.Request, res: express.Response) :
         random: Math.floor((Math.random() * 100) + 1)
     };
 
-    return res.json(r);
+    return res.status(200).json(r);
 }
 
 app.get("/", get);
