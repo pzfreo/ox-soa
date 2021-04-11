@@ -3,12 +3,10 @@ const port = process.env.PORT || 8443;
 const base_dir = "/home/oxsoa/sec/server/keys";
 
 const secureServer = createServer({
-  key: readFileSync(base_dir+'/private/server.key.pem'),
+  key: readFileSync(base_dir+'/private/server-nopass.key.pem'),
   cert: readFileSync(base_dir+'/server.cert.pem'),
   ca: readFileSync(base_dir+'/ca.cert.pem'),
   requestCert: true,
-  passphrase: "password",
-
   rejectUnauthorized: false
 }, app);
 
