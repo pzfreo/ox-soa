@@ -1,0 +1,62 @@
+title DeviceCodeFlow with Github
+
+participant CLIDeveloper
+participant CLIUser
+participant CLI
+participant Browser 
+participant KeycloakDeveloper
+
+participant Keycloak
+participant Service
+participant Github
+
+
+note left of KeycloakDeveloper
+Set up SSO from Keycloak to Github
+end note over 
+
+KeycloakDeveloper->Github: Configure App
+Github->KeycloakDeveloper: CID+CS
+KeycloakDeveloper->Keycloak: Configure CID+CS
+
+
+note left of CLIDeveloper  
+Set up CLI to talk to Keycloak
+end note
+
+CLIDeveloper->Keycloak: Configure App
+Keycloak->CLIDeveloper: CID+CS
+CLIDeveloper->CLI: Configure CID+CS into CLI
+
+note left of CLI
+This is now where the CLI signs in (at runtime)
+end note 
+
+
+CLI -> Keycloak: Request Device Code
+CLI -> Browser: Open Verification URL
+Browser -> Keycloak: Verify
+Keycloak -> Browser: Redirect to Github
+Browser -> Github: Login
+Github -> Browser: Authorise SSO
+Browser -> Github: Yes
+Github -> Browser: Redirect to Keycloak
+Browser -> Keycloak: Authcode
+Keycloak -> Browser: Do you want to authorise the CLI?
+Browser -> Keycloak: Yes
+Keycloak -> Browser: Now close the browser
+CLI -> Keycloak: Poll for tokens
+Keycloak -> CLI: Tokens
+CLI -> CLI: save tokens
+
+note left of CLI
+now we can try a create purchase
+end note 
+
+CLI -> Service: Create Purchase
+Service -> Keycloak: Introspect / Validate token
+Keycloak -> Service: Valid
+Service -> CLI: Purchase response
+
+
+
