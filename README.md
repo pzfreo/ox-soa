@@ -1,4 +1,4 @@
-# ox-soa (previously ox-soa2)
+# ox-soa 
 This is a new version of the SOA course for the Oxford MSc in Software Engineering
 
 For the old version, please see https://github.com/pzfreo/ox-soa-old
